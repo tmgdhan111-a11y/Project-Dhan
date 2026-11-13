@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>清水・駿河湾クルーズ 日帰り旅行の見どころ紹介</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: "Helvetica Neue", Arial, sans-serif; line-height: 1.7; color: #333333; background-color: #f4f7f9; }
+    
+    .hero {
+      background-image: linear-gradient(rgba(0, 119, 182, 0.5), rgba(0, 180, 216, 0.5)), url('images/fuji.jpg');
+      background-size: cover; background-position: center;
+      color: #ffffff; text-align: center; padding: 100px 20px;
+    }
+    .hero-sub { font-size: 1.3rem; letter-spacing: 0.1em; opacity: 0.9; margin-bottom: 8px; }
+    .hero-title { font-size: 2.2rem; font-weight: 700; margin-bottom: 12px; }
+    .hero-desc { font-size: 1.5rem; opacity: 0.95; }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+    .section-title { text-align: center; font-size: 1.8rem; color: #0077b6; margin-bottom: 30px; position: relative; }
+    .section-title::after { content: ""; display: block; width: 50px; height: 3px; background: #00b4d8; margin: 10px auto 0; border-radius: 2px; }
+
+    .spots-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      max-width: 850px;
+      margin: 0 auto 50px;
+    }
+    
+    /* スポットカード */
+    .spot-card {
+      background: #ffffff; border-radius: 12px; overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); display: flex; flex-direction: column;
+      min-height: 400px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease; cursor: pointer; text-decoration: none; color: inherit;
+    }
+    .spot-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12); }
+    
+    .spot-tag { background: #0077b6; color: #ffffff; font-size: 0.8rem; font-weight: bold; padding: 4px 12px; align-self: flex-start; margin: 16px 0 0 16px; border-radius: 20px; }
+    .spot-body {
+      padding: 16px 20px 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .spot-title { font-size: 1.2rem; text-align: center; margin-bottom: 10px; color: #1a1a1a; }
+    .spot-text { font-size: 0.92rem; color: #555555; }
+    .spot-link {
+      display: block;
+      text-align: right;
+      color: #0077b6;
+      font-weight: bold;
+      margin-top: auto;
+      padding-top: 12px;
+      font-size: 0.9rem;
+      transition: color 0.3s ease;
+    }
+
+    .spot-card:hover .spot-link {
+      color: #00b4d8;
+      text-decoration: underline;
+    }
+
+    .info-box { background: #e8f4f8; border-left: 4px solid #0077b6; padding: 20px; border-radius: 4px; margin-bottom: 40px; }
+    .info-box h3 { font-size: 1.1rem; color: #0077b6; margin-bottom: 8px; }
+    .info-list { list-style: none; font-size: 0.95rem; }
+    .info-list li { margin-bottom: 6px; }
+
+    footer { text-align: center; padding: 25px 20px; background: #1e293b; color: #94a3b8; font-size: 0.85rem; }
+
+
+    /* 参加者の感想 (2x2 Grid) */
+    .reviews-section { margin: 60px auto 50px; max-width: 900px; }
+    .review-select-container { 
+      text-align: center; 
+      margin-bottom: 25px; 
+    }
+    .review-select-container label { 
+      font-weight: bold; 
+      color: #0077b6; 
+      margin-right: 10px; 
+      font-size: 1rem; 
+    }
+    .review-year-select { 
+      padding: 8px 16px; 
+      border: 1px solid #0077b6; 
+      border-radius: 8px; 
+      font-size: 1rem; 
+      color: #0077b6; 
+      background: #ffffff; 
+      cursor: pointer; 
+      display: inline-block; 
+      vertical-align: middle;
+    }
+
+    .review-grid { 
+      display: grid; 
+      grid-template-columns: repeat(2, minmax(0, 1fr)); 
+      gap: 20px; 
+      max-width: 850px;
+      margin: 0 auto;
+    }
+    .review-card { 
+      background: #ffffff; 
+      border-radius: 12px; 
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06); 
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .review-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+    .review-card-body {
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .review-student-name {
+      font-size: 0.95rem;
+      color: #0077b6;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .review-topic-title { 
+      color: #555555; 
+      font-size: 0.9rem; 
+      text-align: right;
+      font-weight: bold; /* ← Yaha bold thapne */
+    }
+    .review-card-img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+    .review-note { text-align: center; color: #888888; font-size: 0.8rem; margin-top: 25px; }
+
+    /* Modal Popup for Spot Photo & Student Comment */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .modal-content {
+      max-width: 700px;
+      width: 100%;
+      background: #ffffff;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.3);
+      text-align: center;
+      padding: 25px;
+      position: relative;
+    }
+    .modal-content img {
+      width: 100%;
+      max-height: 400px;
+      object-fit: contain;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .modal-close {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 1.8rem;
+      color: #333;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .modal-title {
+      font-size: 1.2rem;
+      color: #0077b6;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .modal-caption {
+      font-size: 1.05rem;
+      color: #333333;
+      line-height: 1.6;
+    }
+    
+    @media (max-width: 700px) { .review-grid { grid-template-columns: 1fr; } }
+
+  </style>
+</head>
+<body>
+
+  <header class="hero">
+    <p class="hero-sub">中部コンピュータ・パティシエ専門学校秋の恒例行事</p>
+    <h1 class="hero-title">清水・駿河湾クルーズ日帰り研修旅行</h1>
+    <p class="hero-desc">日本の文化と歴史を学ぶ旅</p>
+  </header>
+
+  <div class="container">
+
+    <section class="info-box">
+      <h3>📅 旅行概要</h3>
+      <ul class="info-list">
+        <li><strong>日程：</strong>毎年 9月 - 10月 日帰り</li>
+        <li><strong>方面：</strong>静岡県 清水・久能山エリア</li>
+        <li><strong>集合・出発：</strong>学校前 8:45配車 / 9:00出発</li>
+        <li><strong>解散予定：</strong>学校前 19:00着</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2 class="section-title">旅のハイライト・見どころ</h2>
+      <p style="text-align: center; margin-bottom: 25px; color: #666;">※各スポットをクリックすると、詳細ページが開きます。</p>
+      
+      <div class="spots-grid">
+
+        <!-- スポット 1 -->
+        <a href="detail1.html" class="spot-card">
+          <span class="spot-tag">グルメ & ショッピング</span>
+          <div class="spot-body">
+            <img src="images/food/image1.jpg" alt="はとばキッチン" style="width:100%; height:160px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
+            <h3 class="spot-title">エスパルスドリームプラザ<br>「はとばキッチン」</h3>
+            <p class="spot-text">清水港のヨットハーバーを目の前に望む複合商業施設。<br>大人気のビュッフェランチを堪能します。</p>
+            <span class="spot-link">Clickして詳細へ ➔</span>
+          </div>
+        </a>
+
+        <!-- スポット 2 -->
+        <a href="detail2.html" class="spot-card">
+          <span class="spot-tag">絶景クルーズ</span>
+          <div class="spot-body">
+            <img src="images/cruise/image2.jpg" alt="駿河湾クルーズ" style="width:100%; height:160px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
+            <h3 class="spot-title">駿河湾クルーズ（清水港）</h3>
+            <p class="spot-text">潮風を感じながら約40分間の船旅へ。<br>富士山のパノラマビューを満喫。</p>
+            <span class="spot-link">Clickして詳細へ ➔</span>
+          </div>
+        </a>
+
+        <!-- スポット 3 -->
+        <a href="detail3.html" class="spot-card">
+          <span class="spot-tag">世界文化遺産</span>
+          <div class="spot-body">
+            <img src="images/image3.jpg" alt="三保の松原" style="width:100%; height:160px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
+            <h3 class="spot-title">三保の松原</h3>
+            <p class="spot-text">青い海と緑の松林、富士山の絶景名所。<br>「羽衣伝説」の舞台を散策。</p>
+            <span class="spot-link">Clickして詳細へ ➔</span>
+          </div>
+        </a>
+
+        <!-- スポット 4 -->
+        <a href="detail4.html" class="spot-card">
+          <span class="spot-tag">国宝・パワースポット</span>
+          <div class="spot-body">
+            <img src="images/image4.jpg" alt="久能山東照宮" style="width:100%; height:160px; object-fit:cover; border-radius:8px; margin-bottom:10px;">
+            <h3 class="spot-title">久能山東照宮</h3>
+            <p class="spot-text">徳川家康公が眠る国宝の社殿。<br>歴史とパワーあふれる名所を見学。</p>
+            <span class="spot-link">Clickして詳細へ ➔</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- 参加者の感想 -->
+    <section class="reviews-section" id="reviews">
+      <h2 class="section-title">参加者の感想</h2>
+      
+      <div class="review-select-container">
+        <label for="review-year-select">年度を選択：</label>
+        <select id="review-year-select" class="review-year-select">
+          <option value="2024">2024年</option>
+          <option value="2025">2025年</option>
+          <option value="2026">2026年</option>
+        </select>
+      </div>
+
+      <div class="review-grid" id="review-list" aria-live="polite">
+        <!-- 2024 Default Items -->
+        <article class="review-card" onclick="openModal('images/2024 students/vihara.webp', 'ビハラさんの感想 (クルーズから見る富士山)', 'クルーズから見る富士山がとてもきれいで、忘れられない思い出になりました。')">
+          <div class="review-card-body">
+            <span class="review-student-name">💬 ビハラさん</span>
+            <span class="review-topic-title">クルーズから見る富士山</span>
+          </div>
+          <img src="images/2024 students/vihara.webp" alt="富士山とクルーズ" class="review-card-img">
+        </article>
+
+        <article class="review-card" onclick="openModal('images/2024 students/afuka.webp', 'アフカさんの感想 (おいしいランチ)', '友達と一緒においしいランチを食べたり、写真を撮ったりできて楽しかったです。')">
+          <div class="review-card-body">
+            <span class="review-student-name">💬 アフカさん</span>
+            <span class="review-topic-title">おいしいランチと写真撮影</span>
+          </div>
+          <img src="images/2024 students/afuka.webp" alt="ランチ" class="review-card-img">
+        </article>
+
+        <article class="review-card" onclick="openModal('images/2024 students/karki.webp', 'カルキさんの感想 (歴史や文化の見学)', '三保の松原と久能山東照宮を見学して、日本の歴史や文化を学ぶことができました。')">
+          <div class="review-card-body">
+            <span class="review-student-name">💬 カルキさん</span>
+            <span class="review-topic-title">三保の松原と久能山東照宮の見学</span>
+          </div>
+          <img src="images/2024 students/karki.webp" alt="三保の松原" class="review-card-img">
+        </article>
+
+        <article class="review-card" onclick="openModal('images/2024 students/sharma.webp', 'サルマさんの感想 (バスの中の雰囲気)', 'バスの中の雰囲気も良く、クラスメイトみんなと仲良くなれる最高の行事でした。')">
+          <div class="review-card-body">
+            <span class="review-student-name">💬 サルマさん</span>
+            <span class="review-topic-title">バスの中の雰囲気とクラスメイト</span>
+          </div>
+          <img src="images/2024 students/sharma.webp" alt="久能山東照宮" class="review-card-img">
+        </article>
+      </div>
+      <p class="review-note">※見どころの写真をクリックすると、学生たちの感想（コメント）が大きく表示されます。</p>
+    </section>
+
+  </div>
+
+  <!-- Modal Popup Box -->
+  <div id="photoModal" class="modal" onclick="closeModal()">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+      <img id="modalImg" src="" alt="スポットの写真">
+      <h3 id="modalTitle" class="modal-title"></h3>
+      <p id="modalCaption" class="modal-caption"></p>
+    </div>
+  </div>
+
+  <footer>
+    <p>※バス走行中は安全のため必ずシートベルトの着用をお願いいたします。</p>
+    <p style="margin-top: 4px;">企画手配：株式会社 第一観光</p>
+  </footer>
+
+
+  <script>
+    const reviewData = {
+      "2024": [
+        { photo: "images/2024 students/vihara.webp", title: "クルーズから見る富士山", name: "ビハラさん", comment: "クルーズから見る富士山がとてもきれいで、忘れられない思い出になりました。" },
+        { photo: "images/2024 students/afuka.webp", title: "おいしいランチと写真撮影", name: "アフカさん", comment: "友達と一緒においしいランチを食べたり、写真を撮ったりできて楽しかったです。" },
+        { photo: "images/2024 students/karki.webp", title: "三保の松原と久能山東照宮の見学", name: "カルキさん", comment: "三保の松原と久能山東照宮を見学して、日本の歴史や文化を学ぶことができました。" },
+        { photo: "images/2024 students/sharma.webp", title: "バスの中の雰囲気とクラスメイト", name: "サルマさん", comment: "バスの中の雰囲気も良く、クラスメイトみんなと仲良くなれる最高の行事でした。" }
+      ],
+      "2025": [
+        { photo: "images/2025 students/ayau.webp", title: "船の上からの景色", name: "アユさん", comment: "船の上から見る景色が最高でした。海風も気持ちよく、また参加したいです。" },
+        { photo: "images/2025 students/khadka.webp", title: "友達との思い出", name: "カドカさん", comment: "普段なかなか行けない場所を友達と一緒に回れて、とても充実した一日でした。" },
+        { photo: "images/2025 students/karishma.webp", title: "久能山東照宮の建物", name: "カリスマさん", comment: "久能山東照宮の建物が美しく、日本の歴史に興味を持つきっかけになりました。" },
+        { photo: "images/2025 students/sapana.webp", title: "写真スポットでの思い出", name: "サパナさん", comment: "写真スポットがたくさんあって、思い出に残るすばらしい一日になりました。" }
+      ],
+      "2026": [
+        { photo: "images/2026 students/kumari.webp", title: "駿河湾クルーズと富士山", name: "クマリさん", comment: "駿河湾クルーズで富士山を見ることができて感動しました。写真もたくさん撮れました。" },
+        { photo: "images/2026 students/sangita.webp", title: "ランチタイムの会話", name: "サンギタさん", comment: "はとばキッチンのランチがおいしく、友達との会話も弾んで楽しかったです。" },
+        { photo: "images/2026 students/gc.webp", title: "研修旅行の感想", name: "ジシさん", comment: "美しい景色と歴史ある場所の両方を楽しめて、思い出に残る研修旅行になりました。" },
+        { photo: "images/2026 students/dan.webp", title: "最高の景色と思い出", name: "ダンさん", comment: "天気に恵まれて最高の景色でした！友達と最高の思い出が作れて大満足です。" }
+      ]
+    };
+
+    const yearSelect = document.getElementById('review-year-select');
+    const reviewList = document.getElementById('review-list');
+
+    yearSelect.addEventListener('change', () => {
+      const year = yearSelect.value;
+      
+      reviewList.innerHTML = reviewData[year].map((review) => `
+        <article class="review-card" onclick="openModal('${review.photo}', '${review.name}の感想 (${review.title})', '${review.comment}')">
+          <div class="review-card-body">
+            <span class="review-student-name">💬 ${review.name}</span>
+            <span class="review-topic-title">${review.title}</span>
+          </div>
+          <img src="${review.photo}" alt="${review.title}" class="review-card-img">
+        </article>
+      `).join('');
+    });
+
+    // Modal Functions
+    function openModal(imgSrc, titleText, captionText) {
+      const modal = document.getElementById('photoModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalTitle = document.getElementById('modalTitle');
+      const modalCaption = document.getElementById('modalCaption');
+      
+      modal.style.display = 'flex';
+      modalImg.src = imgSrc;
+      modalTitle.textContent = titleText;
+      modalCaption.textContent = "「 " + captionText + " 」";
+    }
+
+    function closeModal() {
+      const modal = document.getElementById('photoModal');
+      modal.style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
